@@ -320,13 +320,22 @@
             const envFirebaseConfig = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
 
             // --- STEP 2: PASTE YOUR CONFIG FOR LOCAL TESTING ---
-            const localFirebaseConfig = {
+            /*const localFirebaseConfig = {
               apiKey: "AIza...",
               authDomain: "your-project.firebaseapp.com",
               projectId: "your-project-id",
               storageBucket: "your-project.appspot.com",
               messagingSenderId: "1234567890",
               appId: "1:1234567890:web:abcdef123456"
+            };*/
+
+            const localFirebaseConfig = {
+              apiKey: "AIzaSyC_qqlBF_2YD-Zg04rlWmjP5st16EsFdFw",
+              authDomain: "my-portfolio-website-3bc2d.firebaseapp.com",
+              projectId: "my-portfolio-website-3bc2d",
+              storageBucket: "my-portfolio-website-3bc2d.firebasestorage.app",
+              messagingSenderId: "131516389747",
+              appId: "1:131516389747:web:30c5a46687535f6afc4d06"
             };
 
             const firebaseConfig = envFirebaseConfig ? JSON.parse(envFirebaseConfig) : localFirebaseConfig;
@@ -566,7 +575,9 @@
                 }
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
-                Object.assign(data, detailsFn ? detailsFn(data) : {});
+                if (detailsFn) {
+                    Object.assign(data, detailsFn(data));
+                }
                 data.createdAt = serverTimestamp();
                 
                 try {
@@ -590,10 +601,11 @@
                     math: { tag: "Mathematics", color: "purple" },
                     electric: { tag: "Electric Eng.", color: "yellow" }
                 };
+                const details = categoryDetails[category] || { tag: "Misc.", color: "gray" };
                 return {
                     imageUrl: data.imageUrl || `https://placehold.co/600x400/1F2937/9CA3AF?text=${encodeURIComponent(data.title)}`,
-                    categoryTag: categoryDetails[category].tag,
-                    categoryColor: categoryDetails[category].color
+                    categoryTag: details.tag,
+                    categoryColor: details.color
                 };
             }));
             
@@ -621,4 +633,4 @@
 
     </script>
 </body>
-</html>
+</ht
