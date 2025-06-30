@@ -245,10 +245,13 @@ textarea {
 }
 
 .home-title {
-  font-size: 3.5rem;
+  font-size: clamp(2.2rem, 5vw + 1rem, 3.5rem);
+  line-height: 1.2;
   margin: 0;
   color: var(--text-color);
   border-bottom: none;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .home-title-accent {
@@ -269,7 +272,7 @@ textarea {
 
 .latest-items-container{
   width: 100%;
-  gap:30rem;
+  gap:10rem;
   display:flex;
   max-width: 1400px; /* Largura máxima que o seu conteúdo vai ocupar. Pode ajustar este valor. */
   margin-left: auto;  /* Estas duas regras centram o container na tela */
@@ -283,7 +286,7 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  flex: 1;
+  flex: 2;
   min-width: 300px;
 }
 
@@ -302,7 +305,7 @@ textarea {
 .home-card {
   background: var(--secondary-color);
   padding: 1.5rem 2rem;
-  border-radius: 12px;
+  border-radius: 50px;
   border: 1px solid var(--border-color);
   text-align: left;
   display: flex;
@@ -333,7 +336,7 @@ textarea {
 }
 
 .card-category {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--subtle-text-color);
   margin-bottom: 1rem;
 }
@@ -376,7 +379,7 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1400px;
+  /*max-width: 1400px;*/
   padding-left: 2rem;
   padding-right: 2rem;
   box-sizing: border-box;
@@ -402,7 +405,7 @@ textarea {
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   align-items: center;
 }
 
@@ -423,7 +426,7 @@ textarea {
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .logout-button {

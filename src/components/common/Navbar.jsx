@@ -5,12 +5,12 @@ import LanguageSwitcher from './LanguageSwitcher'; // Presumindo que este compon
 
 // Ajuste o caminho da importação se o seu useSupabase estiver em outro lugar
 // Se não for usado aqui, pode ser removido
-// import { useSupabase } from '../../context/SupabaseContext'; 
+ import { useSupabase } from '../../context/SupabaseContext'; 
 
 const Navbar = ({ session, profile }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  // const { client } = useSupabase(); // Descomente se usar o client para o logout
+  const { client } = useSupabase(); // Descomente se usar o client para o logout
 
   // --- 1. NOVO ESTADO PARA CONTROLAR O MENU ---
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,7 +18,7 @@ const Navbar = ({ session, profile }) => {
   const handleLogout = async () => {
     // A sua lógica de logout aqui...
     // Exemplo:
-    // await client.auth.signOut();
+    await client.auth.signOut();
     navigate('/');
   };
 
@@ -39,8 +39,7 @@ const Navbar = ({ session, profile }) => {
             <NavLink to="/portfolio" className="nav-link">Projetos</NavLink>
             <NavLink to="/content" className="nav-link">Conteúdo</NavLink>
             <NavLink to="/contact" className="nav-link">Contato</NavLink>
-          </div>
-          <div className="user-info">
+
             {profile ? (
               <>
                 <NavLink to="/profile" className="nav-link">{t('greeting', { name: profile.full_name })}</NavLink>
