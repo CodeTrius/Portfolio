@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSupabase } from '../../context/SupabaseContext';
 import { useAuth } from '../../hooks/useAuth';
 import Loading from '../../components/common/Loading';
+import { Link } from 'react-router-dom';
 
 const AdminProjectsPage = () => {
   const { client } = useSupabase();
@@ -57,11 +58,11 @@ const AdminProjectsPage = () => {
   const sanitizeFilename = (filename) => {
     return filename.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-.]/g, '');
   };
-  
+
   const clearFileInput = (inputRef) => {
-      if (inputRef.current) {
-          inputRef.current.value = "";
-      }
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   };
 
   const handleDelete = async (projectToDelete) => {
@@ -102,71 +103,74 @@ const AdminProjectsPage = () => {
     let imageUrl = null;
 
     try {
-        const thumbnailFile = thumbnailInputRef.current?.files[0];
-        if (thumbnailFile) {
-            const thumbPath = `public/thumbnails/${Date.now()}-${sanitizeFilename(thumbnailFile.name)}`;
-            const { error } = await client.storage.from('portfolio-assets').upload(thumbPath, thumbnailFile);
-            if (error) throw new Error('Erro no upload da thumbnail: ' + error.message);
-            thumbnailUrl = client.storage.from('portfolio-assets').getPublicUrl(thumbPath).data.publicUrl;
-        }
+      const thumbnailFile = thumbnailInputRef.current?.files[0];
+      if (thumbnailFile) {
+        const thumbPath = `public/thumbnails/${Date.now()}-${sanitizeFilename(thumbnailFile.name)}`;
+        const { error } = await client.storage.from('portfolio-assets').upload(thumbPath, thumbnailFile);
+        if (error) throw new Error('Erro no upload da thumbnail: ' + error.message);
+        thumbnailUrl = client.storage.from('portfolio-assets').getPublicUrl(thumbPath).data.publicUrl;
+      }
 
-        const mainImageFile = imageInputRef.current?.files[0];
-        if (mainImageFile) {
-            const imgPath = `public/main-images/${Date.now()}-${sanitizeFilename(mainImageFile.name)}`;
-            const { error } = await client.storage.from('portfolio-assets').upload(imgPath, mainImageFile);
-            if (error) throw new Error('Erro no upload da imagem principal: ' + error.message);
-            imageUrl = client.storage.from('portfolio-assets').getPublicUrl(imgPath).data.publicUrl;
-        }
+      const mainImageFile = imageInputRef.current?.files[0];
+      if (mainImageFile) {
+        const imgPath = `public/main-images/${Date.now()}-${sanitizeFilename(mainImageFile.name)}`;
+        const { error } = await client.storage.from('portfolio-assets').upload(imgPath, mainImageFile);
+        if (error) throw new Error('Erro no upload da imagem principal: ' + error.message);
+        imageUrl = client.storage.from('portfolio-assets').getPublicUrl(imgPath).data.publicUrl;
+      }
 
-        const mainFile = fileInputRef.current?.files[0];
-        if (mainFile) {
-            const filePath = `public/files/${Date.now()}-${sanitizeFilename(mainFile.name)}`;
-            const { error } = await client.storage.from('portfolio-assets').upload(filePath, mainFile);
-            if (error) throw new Error('Erro no upload do arquivo principal: ' + error.message);
-            fileUrl = client.storage.from('portfolio-assets').getPublicUrl(filePath).data.publicUrl;
-        }
-    
-        const { data: newProject, error: insertError } = await client.from('projects').insert([{
-          user_id: session.user.id,
-          title,
-          excerpt,
-          description,
-          category_id: finalCategoryId,
-          thumbnail_url: thumbnailUrl,
-          image_url: imageUrl,
-          file_url: fileUrl,
-        }]).select().single();
-    
-        if (insertError) throw new Error('Erro ao salvar no banco de dados: ' + insertError.message);
-    
-        setFormMessage({ type: 'success', text: 'Projeto adicionado com sucesso!' });
-        e.target.reset();
-        setSelectedCategory('');
-        setSelectedSubCategory('');
-        clearFileInput(thumbnailInputRef);
-        clearFileInput(imageInputRef);
-        clearFileInput(fileInputRef);
-        setProjects([newProject, ...projects]);
+      const mainFile = fileInputRef.current?.files[0];
+      if (mainFile) {
+        const filePath = `public/files/${Date.now()}-${sanitizeFilename(mainFile.name)}`;
+        const { error } = await client.storage.from('portfolio-assets').upload(filePath, mainFile);
+        if (error) throw new Error('Erro no upload do arquivo principal: ' + error.message);
+        fileUrl = client.storage.from('portfolio-assets').getPublicUrl(filePath).data.publicUrl;
+      }
+
+      const { data: newProject, error: insertError } = await client.from('projects').insert([{
+        user_id: session.user.id,
+        title,
+        excerpt,
+        description,
+        category_id: finalCategoryId,
+        thumbnail_url: thumbnailUrl,
+        image_url: imageUrl,
+        file_url: fileUrl,
+      }]).select().single();
+
+      if (insertError) throw new Error('Erro ao salvar no banco de dados: ' + insertError.message);
+
+      setFormMessage({ type: 'success', text: 'Projeto adicionado com sucesso!' });
+      e.target.reset();
+      setSelectedCategory('');
+      setSelectedSubCategory('');
+      clearFileInput(thumbnailInputRef);
+      clearFileInput(imageInputRef);
+      clearFileInput(fileInputRef);
+      setProjects([newProject, ...projects]);
 
     } catch (error) {
-        setFormMessage({ type: 'error', text: error.message });
+      setFormMessage({ type: 'error', text: error.message });
     } finally {
-        setUploading(false);
+      setUploading(false);
     }
   };
 
   const parentCategories = categories.filter(c => c.parent_id === null);
   const subCategories = selectedCategory ? categories.filter(c => c.parent_id === parseInt(selectedCategory, 10)) : [];
-  
+
   if (loading || loadingCategories) return <Loading />;
 
   return (
+
     <div>
+      <Link to="/admin" className="back-button2">
+        &larr; Voltar para a Admin
+      </Link>
       <div className="admin-page-header">
         <h2>Gerenciar Projetos</h2>
       </div>
-
-      <form onSubmit={handleSubmit} className="admin-form" style={{gap: '1rem', background: 'var(--secondary-color)', borderRadius: '8px', padding: '2rem', maxWidth: '800px'}}>
+      <form onSubmit={handleSubmit} className="admin-form" style={{ gap: '1rem', background: 'var(--secondary-color)', borderRadius: '8px', padding: '2rem', maxWidth: '800px' }}>
         <input name="title" type="text" placeholder="Título do Projeto" required />
         <textarea name="excerpt" placeholder="Resumo do projeto" rows={3} required></textarea>
         <textarea name="description" placeholder="Descrição completa do projeto" rows={8} required></textarea>
@@ -182,31 +186,31 @@ const AdminProjectsPage = () => {
             {subCategories.map(sub => <option key={sub.id} value={sub.id}>{sub.name}</option>)}
           </select>
         )}
-        
+
         <div className="input-group">
-            <label>Imagem de Miniatura (Thumbnail):</label>
-            <div className="file-input-wrapper">
-                <input ref={thumbnailInputRef} name="thumbnail" type="file" accept="image/*" />
-                <button type="button" onClick={() => clearFileInput(thumbnailInputRef)} className="clear-file-button">Limpar</button>
-            </div>
+          <label>Imagem de Miniatura (Thumbnail):</label>
+          <div className="file-input-wrapper">
+            <input ref={thumbnailInputRef} name="thumbnail" type="file" accept="image/*" />
+            <button type="button" onClick={() => clearFileInput(thumbnailInputRef)} className="clear-file-button">Limpar</button>
+          </div>
         </div>
         <div className="input-group">
-            <label>Imagem Principal (para a página de detalhes):</label>
-            <div className="file-input-wrapper">
-                <input ref={imageInputRef} name="image" type="file" accept="image/*" />
-                <button type="button" onClick={() => clearFileInput(imageInputRef)} className="clear-file-button">Limpar</button>
-            </div>
+          <label>Imagem Principal (para a página de detalhes):</label>
+          <div className="file-input-wrapper">
+            <input ref={imageInputRef} name="image" type="file" accept="image/*" />
+            <button type="button" onClick={() => clearFileInput(imageInputRef)} className="clear-file-button">Limpar</button>
+          </div>
         </div>
         <div className="input-group">
-            <label>Arquivo Principal (PDF, ZIP, etc.):</label>
-            <div className="file-input-wrapper">
-                <input ref={fileInputRef} name="file" type="file" />
-                <button type="button" onClick={() => clearFileInput(fileInputRef)} className="clear-file-button">Limpar</button>
-            </div>
+          <label>Arquivo Principal (PDF, ZIP, etc.):</label>
+          <div className="file-input-wrapper">
+            <input ref={fileInputRef} name="file" type="file" />
+            <button type="button" onClick={() => clearFileInput(fileInputRef)} className="clear-file-button">Limpar</button>
+          </div>
         </div>
-        
+
         <button type="submit" disabled={uploading}>
-            {uploading ? 'Enviando...' : 'Salvar Projeto'}
+          {uploading ? 'Enviando...' : 'Salvar Projeto'}
         </button>
       </form>
 

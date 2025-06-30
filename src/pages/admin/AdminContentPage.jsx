@@ -3,6 +3,7 @@ import { useSupabase } from '../../context/SupabaseContext';
 import { useAuth } from '../../hooks/useAuth';
 import TiptapEditor from '../../components/editor/TiptapEditor';
 import Loading from '../../components/common/Loading';
+import { Link } from 'react-router-dom';
 
 const AdminContentPage = () => {
     const { client } = useSupabase();
@@ -48,7 +49,7 @@ const AdminContentPage = () => {
         const fetchInitialData = async () => {
             const catPromise = client.from('content_categories').select('*').order('name');
             const postsPromise = client.from('content_posts').select('id, title, is_published, publish_at, created_at').order('created_at', { ascending: false });
-            
+
             const [catResult, postsResult] = await Promise.all([catPromise, postsPromise]);
 
             if (catResult.error) setFormMessage({ type: 'error', text: 'Falha ao carregar categorias.' });
@@ -56,7 +57,7 @@ const AdminContentPage = () => {
 
             if (postsResult.error) setFormMessage({ type: 'error', text: 'Falha ao carregar posts.' });
             else setPosts(postsResult.data || []);
-            
+
             setLoading(false);
         };
         fetchInitialData();
@@ -214,7 +215,7 @@ const AdminContentPage = () => {
             setIsSubmitting(false);
         }
     };
-    
+
     const parentCategories = contentCategories.filter(c => c.parent_id === null);
     const subCategories = selectedParentCategory ? contentCategories.filter(c => c.parent_id === parseInt(selectedParentCategory, 10)) : [];
     const filteredPosts = posts.filter(post => { const status = getPostStatus(post); switch (filterStatus) { case 'Publicados': return status === 'Publicado'; case 'Agendados': return status === 'Agendado'; case 'Rascunhos': return status === 'Rascunho'; default: return true; } });
@@ -223,7 +224,10 @@ const AdminContentPage = () => {
 
     return (
         <div>
-            <h2 style={{ borderBottom: 'none' }}>{editingPostId ? `Editando Post: "${title}"` : 'Criar Novo Post'}</h2>
+            <Link to="/admin" className="back-button2">
+                &larr; Voltar para a Admin
+            </Link>
+            <h2 className="admin-page-header2">{editingPostId ? `Editando Post: "${title}"` : 'Criar Novo Post'}</h2>
             {editingPostId && <button type="button" onClick={resetForm} style={{ marginBottom: '1rem' }}>+ Criar Novo Post</button>}
 
             <form onSubmit={handleSavePost} className="admin-form" style={{ gap: '1rem', background: 'var(--secondary-color)', borderRadius: '8px', padding: '2rem', maxWidth: '800px' }}>
@@ -252,7 +256,7 @@ const AdminContentPage = () => {
                         <button type="button" onClick={() => setShowNewSubInput(s => !s)}>{showNewSubInput ? '−' : '+'}</button>
                     </div>
                 )}
-                
+
                 {showNewSubInput && selectedParentCategory && (
                     <div className="new-category-input-wrapper">
                         <input type="text" placeholder="Nome da Nova Subcategoria" value={newSubCatName} onChange={e => setNewSubCatName(e.target.value)} />
@@ -264,7 +268,7 @@ const AdminContentPage = () => {
                 <input type="text" placeholder="Título da Aula/Post" value={title} onChange={(e) => setTitle(e.target.value)} required />
                 <p className="part-number-indicator">Parte {partNumber}</p>
                 <TiptapEditor key={editorKey} content={content} onContentChange={setContent} />
-                
+
                 <div style={{ marginTop: '1rem' }}>
                     <label style={{ display: 'block', marginBottom: '0.5rem' }}>Anexar Documento (PDF, DOC, etc.):</label>
                     <input type="file" ref={docFileInputRef} />
@@ -275,7 +279,7 @@ const AdminContentPage = () => {
                     <input type="file" ref={videoFileInputRef} accept="video/*" />
                     <input type="text" placeholder="Título do Vídeo" value={videoDisplayName} onChange={(e) => setVideoDisplayName(e.target.value)} style={{ width: '100%', marginTop: '0.5rem' }} />
                 </div>
-                
+
                 <div className="post-settings-wrapper">
                     <label><input type="checkbox" checked={isPublished} onChange={(e) => setIsPublished(e.target.checked)} /> Publicar</label>
                     <label>Agendar: <input type="datetime-local" value={publishAt} onChange={(e) => setPublishAt(e.target.value)} /></label>
