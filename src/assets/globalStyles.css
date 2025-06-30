@@ -31,17 +31,25 @@ body {
 }
 
 .container {
-  width: 100%;
-  max-width: 1400px;
-  /* Largura máxima que o seu conteúdo vai ocupar. Pode ajustar este valor. */
+  /* Ocupa a largura total do seu elemento pai. */
+  width: 100%; 
+
+  /* Define a largura MÁXIMA que o conteúdo pode atingir. 
+     Em telas maiores que 1400px, o conteúdo não vai esticar mais. 
+     Você pode ajustar este valor como preferir. */
+  max-width: 1400px; 
+
+  /* Este é o truque para centrar o container na tela. */
   margin-left: auto;
-  /* Estas duas regras centram o container na tela */
   margin-right: auto;
+
+  /* Adiciona um espaçamento nas laterais para que o conteúdo 
+     não cole nas bordas em telas de telemóvel e tablet. */
   padding-left: 2rem;
-  /* Adiciona um espaçamento nas laterais para telas pequenas */
   padding-right: 2rem;
-  box-sizing: border-box;
-  /* Garante que o padding não aumente a largura total */
+
+  /* Boa prática para garantir que o padding não aumente a largura total do elemento. */
+  box-sizing: border-box; 
 }
 
 /* --- ESTILO PARA O CONTAINER ROOT --- */
@@ -1845,3 +1853,4 @@ textarea {
   justify-content: space-between;
   align-items: center;
 }
+
