@@ -30,7 +30,7 @@ const HomePage = () => {
         .limit(3);
 
       const [postResult, projectResult] = await Promise.all([postPromise, projectPromise]);
-      
+
       if (postResult.data) setLatestPosts(postResult.data);
       if (projectResult.data) setLatestProjects(projectResult.data);
       setLoading(false);
@@ -50,8 +50,6 @@ const HomePage = () => {
         <br />
         Este ambiente une ensino, pesquisa e prática.
       </p>
-
-      {/* A MUDANÇA É AQUI: Adicionamos a classe "container" para limitar e centrar esta secção */}
       <div className="container">
         <div className="latest-items-container">
           {/* Coluna de Posts */}

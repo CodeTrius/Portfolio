@@ -1923,3 +1923,9 @@ textarea {
   align-items: center;
 }
 
+/* Adicione esta regra ao seu globalStyles.css */
+.no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
