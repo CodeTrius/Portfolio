@@ -1366,6 +1366,7 @@ textarea {
   cursor: pointer;
 }
 
+
 /* --- MEDIA QUERIES --- */
 @media (max-width: 1200px) {
   .main-content {
@@ -1445,6 +1446,32 @@ textarea {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
+  }
+
+@media (orientation: portrait) {
+    .latest-items-container {
+      flex-direction: column; /* Empilha as colunas em retrato */
+      align-items: center;    /* Centraliza as colunas empilhadas */
+      gap: 1.5rem;            /* Espaçamento vertical entre as colunas */
+    }
+    .home-card-column {
+      width: 100%;
+      max-width: 500px; /* Garante que as colunas não fiquem muito largas */
+    }
+  }
+
+  /* Estilos específicos para telas até 1200px E orientação PAISAGEM */
+  @media (orientation: landscape) {
+    .latest-items-container {
+      flex-direction: row; /* Mantém as colunas lado a lado em paisagem */
+      justify-content: center; /* Centraliza o grupo de colunas */
+      gap: 2rem; /* Espaçamento horizontal entre as colunas */
+    }
+    .home-card-column {
+      flex: 1; /* Ocupa o espaço disponível */
+      min-width: 400px; /* Garante que não fiquem pequenas demais */
+      max-width: 550px; /* Opcional: para controlar o tamanho máximo */
+    }
   }
 }
 
