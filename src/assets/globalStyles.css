@@ -1429,7 +1429,7 @@ textarea {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
     z-index: 1000; /* Fica por baixo do botão de fechar (X) mas por cima do resto */
   }
 
