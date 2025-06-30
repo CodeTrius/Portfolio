@@ -502,6 +502,24 @@ textarea {
 }
 
 /* --- GENERIC CARD & BUTTONS --- */
+
+
+.back-button3 {
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  background: rgb(48, 136, 30);
+  color: rgb(255, 255, 255);
+  border: none;
+  box-shadow: none;
+  padding: 0.50rem 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+
 .content-card {
   max-width: 800px;
   width: 100%;
@@ -1070,6 +1088,7 @@ textarea {
   gap: 2rem;
   margin-top: 2rem;
   flex-wrap: wrap;
+  flex-direction: row; /* Garante que estejam lado a lado em telas maiores */
 }
 
 .admin-page-header {
@@ -1379,6 +1398,50 @@ textarea {
   min-width: 450px; /* Garante um tamanho mínimo decente para cada coluna em desktop */
 }
 
+
+
+
+
+@media (max-width: 1600px) {
+  .main-content {
+    padding: 1rem;
+  }
+  .nav-wrapper {
+    padding: 1rem;
+  }
+  /* Force stacking on medium screens */
+  .latest-items-container {
+    flex-direction: column;
+    /* <-- ESSENCIAL: Empilha as colunas */
+    align-items: center;
+    /* Centraliza as colunas empilhadas */
+    gap: 1.5rem;
+    /* Espaçamento vertical entre as colunas */
+  }
+  
+  .home-card-column {
+    width: 100%;
+    /* Coluna ocupa a largura total do seu pai flex (latest-items-container) */
+    max-width: 600px;
+    /* Impede que as colunas empilhadas fiquem MUITO largas em tablets grandes */
+  }
+  
+  .back-button3 {
+    position: absolute;
+    top: 2.1rem;
+    left: 4rem;
+    background: rgb(48, 136, 30);
+    color: rgb(255, 255, 255);
+    border: none;
+    box-shadow: none;
+    padding: 0.50rem 1.5rem;
+    border-radius: 100rem;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 1200px) {
   .main-content {
     padding: 1rem;
@@ -1430,7 +1493,7 @@ textarea {
     font-size: 2rem;
   }
   h2 {
-    font-size: 1rem; /* Ajuste para um tamanho visível, não 0rem */
+    font-size: 1.5rem; /* Ajuste para um tamanho visível, não 0rem */
   }
   .latest-items-container {
     flex-direction: column; /* Garante empilhamento */
@@ -1449,6 +1512,9 @@ textarea {
     display: none;
   }
   .hamburger-button {
+    display: block;
+  }
+    .hamburger-button2 {
     display: block;
   }
 
@@ -1472,10 +1538,25 @@ textarea {
     gap: 1rem;
     z-index: 1000; /* Fica por baixo do botão de fechar (X) mas por cima do resto */
   }
+.nav-links-mobile2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /* Largura total da tela */
+  height: 100vh; /* Altura total da tela */
+  background-color: var(--primary-color); /* Você pode usar uma cor diferente para o admin se quiser */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1000; /* Garante que fique acima de tudo */
+}
 
   .nav-links-mobile .nav-link {
     font-size: 1.5rem; /* Aumenta a fonte para ser mais fácil de clicar */
   }
+  
     .mobile-user-info {
     margin-top: 2rem;
     border-top: 1px solid var(--border-color);
@@ -1485,6 +1566,24 @@ textarea {
     align-items: center;
     gap: 1.5rem;
   }
+  .mobile-user-info2 {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+  .admin-dashboard-buttons {
+    flex-direction: column; /* Empilha os botões verticalmente */
+    align-items: center;    /* Centraliza os botões empilhados */
+    gap: 1rem;              /* Espaçamento vertical entre os botões */
+    max-width: 300px; /* Exemplo, ajuste conforme o tamanho dos seus botões */
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
     .close-mobile-menu-button {
   position: absolute; /* Posiciona o botão de forma absoluta dentro do menu */
@@ -1498,14 +1597,27 @@ textarea {
   z-index: 1000; /* Garante que fique acima do menu */
   padding: 0.8rem; /* Área de clique maior */
 }
+
+.close-mobile-menu-button2 {
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  background: none;
+  border: none;
+  color: var(--subtle-text-color); /* Cor do 'X' */
+  font-size: 3rem; /* Tamanho do 'X' */
+  cursor: pointer;
+  z-index: 1000; /* Garante que fique acima do menu */
+  padding: 0.8rem;
+}
   .nav-links-dashboard{
     font-size: 1rem; /* Aumenta a fonte para ser mais fácil de clicar */
   }
 
   .back-button3 {
   position: absolute;
-  top: 1rem;
-  left: 2rem;
+  top: 22rem;
+  left: 4rem;
   background: rgb(48, 136, 30);
   color: rgb(255, 255, 255);
   border: none;
@@ -1515,6 +1627,31 @@ textarea {
   cursor: pointer;
   text-decoration: none;
   font-size: 1rem;
+}
+
+  .back-button4 {
+  position: absolute;
+  top: 3rem;
+  left: 1rem;
+  background: rgb(48, 136, 30);
+  color: rgb(255, 255, 255);
+  border: none;
+  box-shadow: none;
+  padding: 0.50rem 1.5rem;
+  border-radius: 10rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+}
+.nav-link2 {
+  font-size: 1.5rem; /* Aumenta a fonte para ser mais fácil de clicar */
+  color: var(--subtle-text-color); /* Exemplo de cor, ajuste como quiser */
+  text-decoration: none;
+  transition: color
+   0.3s ease;
+}
+.nav-link2:hover {
+  color: var(--accent-color);
 }
 }
 .canvas-wrapper {

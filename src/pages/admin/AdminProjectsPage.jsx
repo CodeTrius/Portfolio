@@ -164,11 +164,7 @@ const AdminProjectsPage = () => {
   return (
 
     <div>
-      
-      <Link to="/admin" className="back-button3">
-        &larr; Voltar para a Admin
-      </Link>
-      <Link to="/admin" className="back-button2">
+      <Link to="/admin" className="back-button4">
         &larr; Voltar para a Admin
       </Link>
       <div className="admin-page-header">
@@ -180,7 +176,7 @@ const AdminProjectsPage = () => {
         <textarea name="description" placeholder="Descrição completa do projeto" rows={8} required></textarea>
 
         <select value={selectedCategory} onChange={(e) => { setSelectedCategory(e.target.value); setSelectedSubCategory(''); }} required>
-          <option value="">-- Selecione uma Categoria Principal --</option>
+          <option value="">--Selecione uma Categoria Principal --</option>
           {parentCategories.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
         </select>
 
