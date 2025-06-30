@@ -68,6 +68,9 @@ const Navbar = ({ session, profile }) => {
         {/* --- 4. MENU MOBILE (SÓ APARECE QUANDO isMenuOpen É TRUE) --- */}
         {isMenuOpen && (
           <div className="nav-links-mobile">
+            <button className="close-mobile-menu-button" onClick={closeMenu}>
+              X
+            </button>
             <NavLink to="/" className="nav-link" onClick={closeMenu}>Home</NavLink>
             <NavLink to="/about" className="nav-link" onClick={closeMenu}>Sobre</NavLink>
             <NavLink to="/portfolio" className="nav-link" onClick={closeMenu}>Projetos</NavLink>

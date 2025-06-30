@@ -164,6 +164,10 @@ const AdminProjectsPage = () => {
   return (
 
     <div>
+      
+      <Link to="/admin" className="back-button3">
+        &larr; Voltar para a Admin
+      </Link>
       <Link to="/admin" className="back-button2">
         &larr; Voltar para a Admin
       </Link>

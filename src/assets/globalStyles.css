@@ -528,23 +528,14 @@ textarea {
   top: 1rem;
   left: 2rem;
   background: rgb(48, 136, 30);
-  /* Usando a variável de cor dos botões */
   color: rgb(255, 255, 255);
-  /* Cor do texto principal (geralmente branco ou similar) */
   border: none;
-  /* Remover a borda */
   box-shadow: none;
-  /* Remover a sombra */
   padding: 0.50rem 1.5rem;
-  /* Adicionar preenchimento para parecer um botão */
   border-radius: 1rem;
-  /* Adicionar cantos arredondados (opcional, se os outros botões têm) */
   cursor: pointer;
-  /* Mudar o cursor ao passar por cima (opcional) */
   text-decoration: none;
-  /* Remover o sublinhado */
   font-size: 1rem;
-  /* Manter o tamanho da fonte */
 }
 
 /* --- AUTH & REGISTER PAGES --- */
@@ -1368,57 +1359,105 @@ textarea {
 
 
 /* --- MEDIA QUERIES --- */
+/* Estilos Padrão (para telas >= 1201px): Colunas lado a lado */
+.latest-items-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row; /* Padrão: lado a lado */
+  justify-content: center; /* Centraliza o grupo de colunas */
+  gap: 2rem; /* Espaçamento horizontal entre elas */
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+.home-card-column {
+  flex: 1; /* Permite que as colunas cresçam e ocupem o espaço disponível */
+  min-width: 450px; /* Garante um tamanho mínimo decente para cada coluna em desktop */
+}
+
 @media (max-width: 1200px) {
   .main-content {
     padding: 1rem;
   }
-
   .nav-wrapper {
     padding: 1rem;
   }
 
+  /* Force stacking on medium screens */
+  .latest-items-container {
+    flex-direction: column; /* <-- ESSENCIAL: Empilha as colunas */
+    align-items: center;    /* Centraliza as colunas empilhadas */
+    gap: 1.5rem;            /* Espaçamento vertical entre as colunas */
+  }
+
+  .home-card-column {
+    width: 100%; /* Coluna ocupa a largura total do seu pai flex (latest-items-container) */
+    max-width: 600px; /* Impede que as colunas empilhadas fiquem MUITO largas em tablets grandes */
+  }
+}
+
+
+
+
+@media (max-width: 1000px) {
+  .main-content {
+    padding: 1rem;
+  }
+  .nav-wrapper {
+    padding: 1rem;
+  }
+
+  /* Force stacking on medium screens */
+  .latest-items-container {
+    flex-direction: column; /* <-- ESSENCIAL: Empilha as colunas */
+    align-items: center;    /* Centraliza as colunas empilhadas */
+    gap: 1.5rem;            /* Espaçamento vertical entre as colunas */
+      max-width: 1400px;
+  }
+
+  .home-card-column {
+    width: 100%; /* Coluna ocupa a largura total do seu pai flex (latest-items-container) */
+    max-width: 600px; /* Impede que as colunas empilhadas fiquem MUITO largas em tablets grandes */
+  }
+}
+
+@media (max-width: 900px) {
   h1 {
     font-size: 2rem;
   }
-
   h2 {
-    font-size: 0rem;
+    font-size: 1rem; /* Ajuste para um tamanho visível, não 0rem */
   }
-
-  .about-page-container,
-  .content-layout-container {
-    flex-direction: column;
-  }
-
-  .category-list-panel {
-    max-width: 100%;
-  }
-
-  .nav-links-container {
-    display: none;
-  }
-
-  /* Esta regra faz as colunas empilharem */
   .latest-items-container {
-    flex-direction: column; /* Muda a direção do flexbox para vertical */
+    flex-direction: column; /* Garante empilhamento */
     align-items: center;
+    gap: 1rem; /* Espaçamento vertical para mobile */
+      max-width: 1200px;
   }
-
-  /* Esta regra garante que cada coluna ocupe a largura total */
-  .home-card-column {
-    width: 100%;
-    max-width: 500px; /* Impede que fique largo demais em tablets */
-  }
-
-    .nav-links-desktop {
+.home-card-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 2;
+  min-width: 300px;
+}
+  .nav-links-desktop {
     display: none;
   }
-  /* Mostra o botão hambúrguer */
   .hamburger-button {
     display: block;
   }
 
-  /* Estilo para o menu overlay que cobre a tela */
+  .home-page-style {
+  text-align: center;
+  width: 100%;
+}
+
+   /* Estilo para o menu overlay que cobre a tela */
   .nav-links-mobile {
     position: fixed; /* Fixo na tela */
     top: 0;
@@ -1437,8 +1476,7 @@ textarea {
   .nav-links-mobile .nav-link {
     font-size: 1.5rem; /* Aumenta a fonte para ser mais fácil de clicar */
   }
-
-  .mobile-user-info {
+    .mobile-user-info {
     margin-top: 2rem;
     border-top: 1px solid var(--border-color);
     padding-top: 2rem;
@@ -1448,109 +1486,37 @@ textarea {
     gap: 1.5rem;
   }
 
-@media (orientation: portrait) {
-    .latest-items-container {
-      flex-direction: column; /* Empilha as colunas em retrato */
-      align-items: center;    /* Centraliza as colunas empilhadas */
-      gap: 1.5rem;            /* Espaçamento vertical entre as colunas */
-    }
-    .home-card-column {
-      width: 100%;
-      max-width: 500px; /* Garante que as colunas não fiquem muito largas */
-    }
-  }
-
-  /* Estilos específicos para telas até 1200px E orientação PAISAGEM */
-  @media (orientation: landscape) {
-    .latest-items-container {
-      flex-direction: row; /* Mantém as colunas lado a lado em paisagem */
-      justify-content: center; /* Centraliza o grupo de colunas */
-      gap: 2rem; /* Espaçamento horizontal entre as colunas */
-    }
-    .home-card-column {
-      flex: 1; /* Ocupa o espaço disponível */
-      min-width: 400px; /* Garante que não fiquem pequenas demais */
-      max-width: 550px; /* Opcional: para controlar o tamanho máximo */
-    }
-  }
+    .close-mobile-menu-button {
+  position: absolute; /* Posiciona o botão de forma absoluta dentro do menu */
+  top: 0rem; /* Distância do topo */
+  right: 0rem; /* Distância da direita */
+  background: none; /* Sem fundo */
+  border: none; /* Sem borda */
+  color: var(--subtle-text-color); /* Cor do 'X' */
+  font-size: 3rem; /* Tamanho do 'X' */
+  cursor: pointer;
+  z-index: 1000; /* Garante que fique acima do menu */
+  padding: 0.8rem; /* Área de clique maior */
 }
-
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
+  .nav-links-dashboard{
+    font-size: 1rem; /* Aumenta a fonte para ser mais fácil de clicar */
   }
 
-  h2 {
-    font-size: 0rem;
-  }
-
-  .about-page-container,
-  .content-layout-container {
-    flex-direction: column;
-  }
-
-  .category-list-panel {
-    max-width: 100%;
-  }
-
-  .nav-links-container {
-    display: none;
-  }
-
-  /* Esta regra faz as colunas empilharem */
-  .latest-items-container {
-    flex-direction: column; /* Muda a direção do flexbox para vertical */
-    align-items: center;
-  }
-
-  /* Esta regra garante que cada coluna ocupe a largura total */
-  .home-card-column {
-    width: 100%;
-    max-width: 500px; /* Impede que fique largo demais em tablets */
-  }
-
-    .nav-links-desktop {
-    display: none;
-  }
-  /* Mostra o botão hambúrguer */
-  .hamburger-button {
-    display: block;
-  }
-
-  /* Estilo para o menu overlay que cobre a tela */
-  .nav-links-mobile {
-    position: fixed; /* Fixo na tela */
-    top: 0;
-    left: 0;
-    width: 100vw; /* Largura total da tela */
-    height: 100vh; /* Altura total da tela */
-    background-color: var(--primary-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    z-index: 1000; /* Fica por baixo do botão de fechar (X) mas por cima do resto */
-  }
-
-  .nav-links-mobile .nav-link {
-    font-size: 1.5rem; /* Aumenta a fonte para ser mais fácil de clicar */
-  }
-
-  .mobile-user-info {
-    margin-top: 2rem;
-    border-top: 1px solid var(--border-color);
-    padding-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  /* (Outros estilos responsivos que já discutimos podem ir aqui também) */
+  .back-button3 {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  background: rgb(48, 136, 30);
+  color: rgb(255, 255, 255);
+  border: none;
+  box-shadow: none;
+  padding: 0.50rem 1.5rem;
+  border-radius: 100rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
 }
-
-/* --- Estilos para o Fundo de Canvas --- */
+}
 .canvas-wrapper {
   position: relative;
   width: 100%;
