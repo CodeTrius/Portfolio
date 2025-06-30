@@ -1375,6 +1375,77 @@ textarea {
   .nav-wrapper {
     padding: 1rem;
   }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 0rem;
+  }
+
+  .about-page-container,
+  .content-layout-container {
+    flex-direction: column;
+  }
+
+  .category-list-panel {
+    max-width: 100%;
+  }
+
+  .nav-links-container {
+    display: none;
+  }
+
+  /* Esta regra faz as colunas empilharem */
+  .latest-items-container {
+    flex-direction: column; /* Muda a direção do flexbox para vertical */
+    align-items: center;
+  }
+
+  /* Esta regra garante que cada coluna ocupe a largura total */
+  .home-card-column {
+    width: 100%;
+    max-width: 500px; /* Impede que fique largo demais em tablets */
+  }
+
+    .nav-links-desktop {
+    display: none;
+  }
+  /* Mostra o botão hambúrguer */
+  .hamburger-button {
+    display: block;
+  }
+
+  /* Estilo para o menu overlay que cobre a tela */
+  .nav-links-mobile {
+    position: fixed; /* Fixo na tela */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Largura total da tela */
+    height: 100vh; /* Altura total da tela */
+    background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 1000; /* Fica por baixo do botão de fechar (X) mas por cima do resto */
+  }
+
+  .nav-links-mobile .nav-link {
+    font-size: 1.5rem; /* Aumenta a fonte para ser mais fácil de clicar */
+  }
+
+  .mobile-user-info {
+    margin-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
