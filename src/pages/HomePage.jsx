@@ -51,38 +51,41 @@ const HomePage = () => {
         Este ambiente une ensino, pesquisa e prática.
       </p>
 
-      <div className="latest-items-container">
-        {/* Coluna de Posts */}
-        <div className="home-card-column">
-          <h2 className="home-column-title">Últimos Posts</h2>
-          {latestPosts.map(post => (
-            <div key={post.id} className="home-card">
-              <div className="card-content">
-                <h3 className="card-title">{post.title}</h3>
-                {post.category && <p className="card-category">Categoria: {post.category.name}</p>}
+      {/* A MUDANÇA É AQUI: Adicionamos a classe "container" para limitar e centrar esta secção */}
+      <div className="container">
+        <div className="latest-items-container">
+          {/* Coluna de Posts */}
+          <div className="home-card-column">
+            <h2 className="home-column-title">Últimos Posts</h2>
+            {latestPosts.map(post => (
+              <div key={post.id} className="home-card">
+                <div className="card-content">
+                  <h3 className="card-title">{post.title}</h3>
+                  {post.category && <p className="card-category">Categoria: {post.category.name}</p>}
+                </div>
+                <button onClick={() => navigate(`/content/post/${post.id}`)} className="btn-card">
+                  Leia Mais →
+                </button>
               </div>
-              <button onClick={() => navigate(`/content/post/${post.id}`)} className="btn-card">
-                Leia Mais →
-              </button>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Coluna de Projetos */}
-        <div className="home-card-column">
-          <h2 className="home-column-title">Últimos Projetos</h2>
-          {latestProjects.map(project => (
-            <div key={project.id} className="home-card">
-              <div className="card-content">
-                <h3 className="card-title">{project.title}</h3>
-                {project.category && <p className="card-category">Categoria: {project.category.name}</p>}
-                <p className="card-excerpt">{project.excerpt}</p>
+          {/* Coluna de Projetos */}
+          <div className="home-card-column">
+            <h2 className="home-column-title">Últimos Projetos</h2>
+            {latestProjects.map(project => (
+              <div key={project.id} className="home-card">
+                <div className="card-content">
+                  <h3 className="card-title">{project.title}</h3>
+                  {project.category && <p className="card-category">Categoria: {project.category.name}</p>}
+                  <p className="card-excerpt">{project.excerpt}</p>
+                </div>
+                <button onClick={() => navigate('/portfolio')} className="btn-card btn-project">
+                  Ver Projetos ◆
+                </button>
               </div>
-              <button onClick={() => navigate('/portfolio')} className="btn-card btn-project">
-                Ver Projetos ◆
-              </button>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
