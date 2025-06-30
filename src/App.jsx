@@ -41,7 +41,7 @@ function App() {
 
   return (
     <Routes>
-       <Route path="/" element={<MainLayout />}>
+      <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="portfolio" element={<PortfolioPage />} />
