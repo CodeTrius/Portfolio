@@ -2,8 +2,12 @@ import React, { useState, createContext, useContext } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 // --- SUPABASE SETUP ---
-const supabaseUrl = 'https://hxrznwmxaazhnysmytwz.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4cnpud214YWF6aG55c215dHd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyODk2MzMsImV4cCI6MjA2NTg2NTYzM30.hYniWFKWz9cgVwkBIQw1slQ2POil44q5mmWVbGSXKw0';
+//const supabaseUrl = 'https://hxrznwmxaazhnysmytwz.supabase.co';
+//const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4cnpud214YWF6aG55c215dHd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyODk2MzMsImV4cCI6MjA2NTg2NTYzM30.hYniWFKWz9cgVwkBIQw1slQ2POil44q5mmWVbGSXKw0';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+
 
 const SupabaseContext = createContext(null);
 
